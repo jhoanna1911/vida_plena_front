@@ -1,0 +1,5 @@
+.disabled-menu {
+    pointer-events: none;
+    color: rgba(0, 0, 0, 0.3); /* Cambiar el color a casi transparente */
+    cursor: not-allowed;
+}

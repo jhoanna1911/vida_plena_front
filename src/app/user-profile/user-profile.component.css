@@ -1,0 +1,32 @@
+.card-header {
+    background-color: rgb(47 187 71);
+    color:white
+}
+
+
+.btns {
+    text-align: -webkit-center;
+}
+
+
+/* Establecer un fondo blanco para el calendario y su contenido */
+.custom-calendar-container {
+    background-color: white;
+  }
+
+  .video-container {
+    position: relative;
+    padding-bottom: 100%; /* Esto hace que la relación de aspecto sea 1:1 */
+    overflow: hidden;
+}
+
+.video-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Esto hace que la imagen cubra todo el espacio disponible */
+}
+
+  

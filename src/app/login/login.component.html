@@ -1,0 +1,321 @@
+<div *ngIf="habilitarMenu && !habilitarRegistro" class="main-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-md-9 col-sm-6">
+                <form [formGroup]="loginForm">
+                    <div class="card">
+                        <div class="card-header card-header-success">
+                            <h3 class="card-title">Hola, {{ infoUsuario.primerNombre }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3 class="card-title"><strong>Información general</strong></h3>
+                                    <div class="letter">
+                                        <label class="letter"><strong>Nombre:</strong></label>
+                                        {{ infoUsuario.primerNombre ? infoUsuario.primerNombre : '' }}
+                                        {{ infoUsuario.segundoNombre ? infoUsuario.segundoNombre : '' }}
+                                        {{ infoUsuario.primerApellido ? infoUsuario.primerApellido : '' }}
+                                        {{ infoUsuario.segundoApellido ? infoUsuario.segundoApellido : '' }}
+                                    </div>
+                                    <div class="letter">
+                                        <label class="letter"><strong>EPS:</strong></label>
+                                        {{ infoUsuario.eps }}
+                                    </div>
+                                    <div class="letter">
+                                        <label class="letter"><strong>Celular:</strong></label>
+                                        {{ infoUsuario.celular }}
+                                    </div>
+                                    <div class="letter">
+                                        <label class="letter"><strong>Dirección:</strong></label>
+                                        {{ infoUsuario.direccion }}
+                                    </div>
+                                    <div class="letter">
+                                        <label class="letter"><strong>Email:</strong></label>
+                                        {{ infoUsuario.email }}
+                                    </div>
+                                    <div class="letter">
+                                        <label class="letter"><strong>Fecha de Nacimiento:</strong></label>
+                                        {{ infoUsuario.fechaNacimiento | date:'dd/MM/yyyy' }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 class="card-title"><strong>Contacto de emergencia</strong></h3>
+                                    <div class="letter">
+                                        <label class="letter"><strong>Parentesco:</strong></label>
+                                        {{ infoUsuario.parentescoContacto }}
+                                    </div>
+                                    <div class="letter">
+                                        <label class="letter"><strong>Nombre:</strong></label>
+                                        {{ infoUsuario.nombreContacto }}
+                                    </div>
+                                    <div class="letter">
+                                        <label class="letter"><strong>Celular:</strong></label>
+                                        {{ infoUsuario.telefonoContacto }}
+                                    </div>
+                                    <br><br><br>
+                                    <div class="letter">
+                                        <label class="letter"><strong>Usuario desde:</strong></label>
+                                        {{ infoUsuario.fechaCreacion | date:'dd/MM/yyyy' }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <div class="d-flex">
+                                <div class="ml-auto">
+                                    <button (click)="cerrarSesion()" class="btn btn-warning btn-sm float-left">Cerrar
+                                        sesión</button>
+                                    <button (click)="actualizarDatos()"
+                                        class="btn btn-success btn-sm float-left">Actualizar datos</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!habilitarMenu && !habilitarRegistro" class="main-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-6 col-sm-6">
+                <form [formGroup]="loginForm" (ngSubmit)="validarLogin()">
+                    <div class="card">
+                        <div class="card-header card-header-success">
+                            <h4 class="card-title">Iniciar Sesión</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="username">Usuario</label>
+                                <input type="text" class="form-control" formControlName="login"
+                                    placeholder="Nombre de usuario">
+                                <small *ngIf="validarCampoObligatorioLog('login')" class="text-danger">Campo obligatorio
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" class="form-control" formControlName="contrasena"
+                                    placeholder="Contraseña">
+                                <small *ngIf="validarCampoObligatorioLog('contrasena')" class="text-danger">Campo
+                                    obligatorio
+                                </small>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Ingresar</button>
+                            <div class="text-center mt-3">
+                                <a href="#" (click)="olvidoContrasena()">¿Olvidaste tu contraseña?</a> | <a
+                                    (click)="registro()" href="#">Registro</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="habilitarRegistro" class="main-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-md-12 col-sm-6">
+                <form [formGroup]="registroForm" (ngSubmit)="registrarUsuario()">
+                    <div class="card">
+                        <div class="card-header card-header-success">
+                            <h4 class="card-title">Registro usuario</h4>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title"><strong>Información personal</strong></h4><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Primer nombre</label>
+                                        <input type="text" class="form-control" formControlName="primerNombre"
+                                            placeholder="Primer nombre">
+                                        <small *ngIf="validarCampoObligatorioReg('primerNombre')"
+                                            class="text-danger">Campo obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Segundo nombre</label>
+                                        <input type="text" class="form-control" formControlName="segundoNombre"
+                                            placeholder="Segundo nombre">
+                                        <small *ngIf="validarCampoObligatorioReg('segundoNombre')"
+                                            class="text-danger">Campo obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Primer apellido</label>
+                                        <input type="text" class="form-control" formControlName="primerApellido"
+                                            placeholder="Primer apellido">
+                                        <small *ngIf="validarCampoObligatorioReg('primerApellido')"
+                                            class="text-danger">Campo obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Segundo apellido</label>
+                                        <input type="text" class="form-control" formControlName="segundoApellido"
+                                            placeholder="Segundo apellido">
+                                        <small *ngIf="validarCampoObligatorioReg('segundoApellido')"
+                                            class="text-danger">Campo obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Fecha de nacimiento</label>
+                                        <input type="date" class="form-control" formControlName="fechaNacimiento" />
+                                        <small *ngIf="validarCampoObligatorioReg('fechaNacimiento')"
+                                            class="text-danger">
+                                            Campo obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Eps</label>
+                                        <select name="miselect" class="form-control form-control-user"
+                                            formControlName="eps" required="true">
+                                            <option value="" disabled selected>Selecciona una EPS</option>
+                                            <option [value]="item.idEps" *ngFor="let item of listaEps">
+                                                {{item.nombre}}
+                                            </option>
+                                        </select>
+                                        <small *ngIf="validarCampoObligatorioReg('eps')" class="text-danger">Campo
+                                            obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Celular</label>
+                                        <input type="text" class="form-control" formControlName="celular"
+                                            placeholder="Celular">
+                                        <small *ngIf="validarCampoObligatorioReg('celular')" class="text-danger">Campo
+                                            obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Direccion</label>
+                                        <input type="text" class="form-control" formControlName="direccion"
+                                            placeholder="Direccion">
+                                        <small *ngIf="validarCampoObligatorioReg('direccion')" class="text-danger">Campo
+                                            obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Correo</label>
+                                        <input type="text" class="form-control" formControlName="email"
+                                            placeholder="Correo">
+                                        <small *ngIf="validarCampoObligatorioReg('email')" class="text-danger">Campo
+                                            obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Usuario</label>
+                                        <input type="text" class="form-control" formControlName="login"
+                                            placeholder="Usuario">
+                                        <small *ngIf="validarCampoObligatorioReg('login')" class="text-danger">Campo
+                                            obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input type="text" class="form-control" formControlName="contrasena"
+                                            placeholder="Contraseña">
+                                        <small *ngIf="validarCampoObligatorioReg('contrasena')"
+                                            class="text-danger">Campo obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Confirmar contraseña</label>
+                                        <input type="text" class="form-control" formControlName="contrasenaRep"
+                                            placeholder="Confirmar contraseña">
+                                        <small *ngIf="validarCampoObligatorioReg('contrasenaRep')"
+                                            class="text-danger">Campo obligatorio
+                                        </small>
+                                        <small *ngIf="!coincide" class="text-danger">La contraseña no coincide
+                                        </small><br>
+                                    </div>
+                                </div>
+                            </div><br>
+                            <h4 class="card-title"><strong>Contacto de emergencia</strong></h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <br><input type="text" class="form-control" formControlName="nombreContacto"
+                                            placeholder="Nombre del contacto de emergencia">
+                                        <small *ngIf="validarCampoObligatorioReg('nombreContacto')"
+                                            class="text-danger">Campo obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Teléfono</label>
+                                        <input type="text" class="form-control" formControlName="telefonoContacto"
+                                            placeholder="Teléfono del contacto de emergencia">
+                                        <small *ngIf="validarCampoObligatorioReg('telefonoContacto')"
+                                            class="text-danger">Campo obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Parentesco</label>
+                                        <input type="text" class="form-control" formControlName="parentescoContacto"
+                                            placeholder="Parentesco">
+                                        <small *ngIf="validarCampoObligatorioReg('parentescoContacto')"
+                                            class="text-danger">Campo obligatorio
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <div class="d-flex">
+                                <div class="ml-auto">
+                                    <button type="submit" class="btn btn-success btn-sm float-left">Registrarse</button>
+                                    <button (click)="cancelar()"
+                                        class="btn btn-warning btn-sm float-left">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

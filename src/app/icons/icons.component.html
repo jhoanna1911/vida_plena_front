@@ -1,0 +1,60 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain">
+      <div class="card-header card-header-success">
+        <h4 class="card-title">¡Ayúdanos a Mejorar!</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="encuestaForm" (ngSubmit)="guardarEncuesta()">
+          <!-- Pregunta 1 -->
+          <div class="form-group">
+            <label for="pregunta1">1. ¿Qué te gusta más de nuestra aplicación?</label>
+            <textarea class="form-control" id="pregunta1" rows="3" formControlName="respuesta1"></textarea>
+            <small *ngIf="validarCampoObligatorio('respuesta1')" class="text-danger">Campo obligatorio
+            </small>
+          </div>
+
+          <!-- Pregunta 2 -->
+          <div class="form-group">
+            <label for="pregunta2">2. ¿Qué aspectos crees que podríamos mejorar?</label>
+            <textarea class="form-control" id="pregunta2" rows="3" formControlName="respuesta2"></textarea>
+            <small *ngIf="validarCampoObligatorio('respuesta2')" class="text-danger">Campo obligatorio
+            </small>
+          </div>
+
+          <!-- Pregunta 3 (Opcional) -->
+          <div class="form-group">
+            <label for="pregunta3">3. ¿Tienes alguna sugerencia adicional?</label>
+            <textarea class="form-control" id="pregunta3" rows="3" formControlName="respuesta3"></textarea>
+            <small *ngIf="validarCampoObligatorio('respuesta3')" class="text-danger">Campo obligatorio
+            </small>
+          </div>
+
+          <!-- Opciones de calificación (por ejemplo, con estrellas) -->
+          <div class="form-group">
+            <label for="calificacion">Califica nuestra aplicación:</label>
+            <!-- Aquí puedes agregar opciones de calificación, como estrellas o números -->
+            <!-- Por ejemplo, utilizando estrellas -->
+            <div class="rating">
+              <input type="radio" id="estrella5" name="rating" value="5" formControlName="calificacion">
+              <label for="estrella5">&nbsp;Excelente</label>
+              <input type="radio" id="estrella4" name="rating" value="4" formControlName="calificacion">
+              <label for="estrella4">&nbsp;Muy Buena</label>
+              <input type="radio" id="estrella3" name="rating" value="3" formControlName="calificacion">
+              <label for="estrella3">&nbsp;Buena</label>
+              <input type="radio" id="estrella2" name="rating" value="2" formControlName="calificacion">
+              <label for="estrella2">&nbsp;Regular</label>
+              <input type="radio" id="estrella1" name="rating" value="1" formControlName="calificacion">
+              <label for="estrella1">&nbsp;Mala</label>
+              <small *ngIf="validarCampoObligatorio('calificacion')" class="text-danger">Campo obligatorio
+              </small>
+            </div>
+          </div>
+
+          <!-- Botón de enviar -->
+          <button type="submit" class="btn btn-success">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

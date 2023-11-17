@@ -1,0 +1,45 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h3 class="card-title">Eps {{eps.nombre}}</h3>
+                <p><a href="{{eps.url}}" target="_blank"><u>{{eps.url}}</u></a></p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title"><strong>Citas médicas</strong></h4>
+                        <div class="video-container">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/GdFoOstw5QE"
+                                frameborder="0" allowfullscreen></iframe>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="card-title"><strong>Urgencias</strong></h4>
+                        <a href="{{eps.urgMedicas}}" class="alert-link">
+                            <div class="alert alert-success">
+                                <span>Médicas</span>
+                            </div>
+                        </a>
+                        <a href="{{eps.urgOdontologicas}}" class="alert-link">
+                            <div class="alert alert-success">
+                                <span>Odontológicas</span>
+                            </div>
+                        </a>
+                        <a href="{{eps.urgAmbulancias}}" class="alert-link">
+                            <div class="alert alert-success">
+                                <span>Ambulancias</span>
+                            </div>
+                        </a>
+                        <a href="{{eps.urgPrioritaria}}" class="alert-link">
+                            <div class="alert alert-success">
+                                <span>Atención prioritaria</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
